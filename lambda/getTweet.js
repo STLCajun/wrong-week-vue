@@ -1,6 +1,6 @@
 exports.handler = (event, context, callback) => {
     callback(null, {
       statusCode: 200,
-      body: process.env.CONSUMER_SECRET
+      body: process.env.CONSUMER_KEY
     })
   }
