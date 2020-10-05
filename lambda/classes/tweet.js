@@ -1,5 +1,5 @@
-const _ = require("lodash");
-const twitter = require("twitter");
+const _ = require('lodash');
+const twitter = require('twitter');
 
 class Tweets {
   constructor(credentials) {
@@ -11,30 +11,38 @@ class Tweets {
   getResults(queryString) {
     let _this = this;
     return new Promise((resolve, reject) => {
-      var params = { q: queryString };
+      var params = {
+        q: queryString + ' -filter:retweets AND -filter:replies',
+      };
 
-      _this.client.get("search/tweets", params, (error, tweets, response) => {
-        //console.dir({ error: error });
-        //console.dir(response);
-        //console.dir(tweets);
-        if (!error) {
-          tweets.statuses.forEach((tweet, index, object) => {
-            if (
-              typeof tweets.statuses[index].retweeted_status === "object" ||
-              typeof tweets.statuses[index].retweeted_status !== "undefined" ||
-              tweets.statuses[index].text.startsWith("RT")
-            ) {
-              tweets.statuses.splice(index, 1);
-            }
-          });
+      _this.client.get(
+        'search/tweets',
+        params,
+        (error, tweets, response) => {
+          //console.dir({ error: error });
+          //console.dir(response);
+          //console.dir(tweets);
+          if (!error) {
+            tweets.statuses.forEach((tweet, index, object) => {
+              if (
+                typeof tweets.statuses[index].retweeted_status ===
+                  'object' ||
+                typeof tweets.statuses[index].retweeted_status !==
+                  'undefined' ||
+                tweets.statuses[index].text.startsWith('RT')
+              ) {
+                tweets.statuses.splice(index, 1);
+              }
+            });
 
-          //console.log(tweets.statuses[0]);
+            //console.log(tweets.statuses[0]);
 
-          resolve(tweets.statuses[0]);
-        } else {
-          reject(error);
-        }
-      });
+            resolve(tweets.statuses[0]);
+          } else {
+            reject(error);
+          }
+        },
+      );
     });
   }
 
