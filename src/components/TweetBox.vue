@@ -53,7 +53,7 @@ export default {
           _this.handle = response.data.user.screen_name;
           _this.location = response.data.user.location;
           _this.url =
-            'https://twitter.com/' + response.data.user.handle;
+            'https://twitter.com/' + response.data.user.screen_name;
           _this.loaded = true;
         })
         .catch(err => {
