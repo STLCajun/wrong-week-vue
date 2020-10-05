@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "NODE_ENV=development vue-cli-service serve & yarn functions:serve",
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "NODE_ENV=development vue-cli-service build && yarn functions:build",
     "lint": "vue-cli-service lint",
     "generate": "NODE_ENV=production vue-cli-service build && yarn functions:build",
     "functions:serve": "netlify-lambda serve lambda",
